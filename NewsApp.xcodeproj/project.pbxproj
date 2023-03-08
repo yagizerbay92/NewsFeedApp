@@ -18,6 +18,7 @@
 		4343E2BA29B760EB00142962 /* UrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2B929B760EB00142962 /* UrlBuilder.swift */; };
 		4343E2BD29B770A700142962 /* NewsFeedListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2BC29B770A700142962 /* NewsFeedListModel.swift */; };
 		4343E2C029B777E700142962 /* NewsFeedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2BF29B777E700142962 /* NewsFeedListViewModel.swift */; };
+		4343E2C329B787FE00142962 /* NewsFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2C229B787FE00142962 /* NewsFeedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		4343E2B929B760EB00142962 /* UrlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlBuilder.swift; sourceTree = "<group>"; };
 		4343E2BC29B770A700142962 /* NewsFeedListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedListModel.swift; sourceTree = "<group>"; };
 		4343E2BF29B777E700142962 /* NewsFeedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedListViewModel.swift; sourceTree = "<group>"; };
+		4343E2C229B787FE00142962 /* NewsFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		4343E29E29B7593100142962 /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				4343E2C129B787CD00142962 /* CustomCells */,
 				4343E2BE29B777CA00142962 /* ViewModels */,
 				4343E2BB29B7708600142962 /* Models */,
 				4343E2B429B7599E00142962 /* Constants */,
@@ -112,6 +115,14 @@
 				4343E2BF29B777E700142962 /* NewsFeedListViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4343E2C129B787CD00142962 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				4343E2C229B787FE00142962 /* NewsFeedTableViewCell.swift */,
+			);
+			path = CustomCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +201,7 @@
 				4343E2BD29B770A700142962 /* NewsFeedListModel.swift in Sources */,
 				4343E2A429B7593100142962 /* NewsFeedListViewController.swift in Sources */,
 				4343E2BA29B760EB00142962 /* UrlBuilder.swift in Sources */,
+				4343E2C329B787FE00142962 /* NewsFeedTableViewCell.swift in Sources */,
 				4343E2A029B7593100142962 /* AppDelegate.swift in Sources */,
 				4343E2A229B7593100142962 /* SceneDelegate.swift in Sources */,
 				4343E2C029B777E700142962 /* NewsFeedListViewModel.swift in Sources */,

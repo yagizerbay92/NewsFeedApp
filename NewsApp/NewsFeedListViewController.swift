@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class NewsFeedListViewController: UIViewController {
     
@@ -13,8 +14,9 @@ class NewsFeedListViewController: UIViewController {
     
     private let feedsTableView: UITableView = {
         let temp = UITableView()
-        temp.register(UITableViewCell.self,
-                      forCellReuseIdentifier: "cell")
+        temp.register(NewsFeedTableViewCell.self,
+                      forCellReuseIdentifier: CellIdentifiers.newsFeedCellIdentifier.value)
+        temp.translatesAutoresizingMaskIntoConstraints = false
         return temp
     }()
     
@@ -24,6 +26,11 @@ class NewsFeedListViewController: UIViewController {
         setTableViewSpecs()
         activeConstraints()
         viewModel.getTopStories()
+        viewModel.subscribeListChange { [weak self] in
+            DispatchQueue.main.async {
+                self?.feedsTableView.reloadData()
+            }
+        }
     }
     
     private func setupUI() {
@@ -49,17 +56,35 @@ class NewsFeedListViewController: UIViewController {
 
 extension NewsFeedListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return viewModel.returnNewsFeedList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = feedsTableView.dequeueReusableCell(withIdentifier: "cell",
-                                                      for: indexPath)
-        
+        guard let cell = feedsTableView.dequeueReusableCell(withIdentifier: CellIdentifiers.newsFeedCellIdentifier.value,
+                                                            for: indexPath) as? NewsFeedTableViewCell else {
+            fatalError()
+        }
+        cell.configure(with: viewModel.returnNewsFeedList()[indexPath.row],
+                       viewModel: self.viewModel)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        feedsTableView.deselectRow(at: indexPath, animated: true)
+        let feedItem = viewModel.returnNewsFeedList()[indexPath.row]
+        
+        guard let url = URL(string: feedItem.url ?? "") else {
+            return
+        }
+        
+        let vc = SFSafariViewController(url: url)
+        vc.modalPresentationStyle = .automatic
+        vc.modalTransitionStyle = .coverVertical
+        present(vc, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
 }
 

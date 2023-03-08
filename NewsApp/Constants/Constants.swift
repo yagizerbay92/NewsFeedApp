@@ -24,4 +24,14 @@ public enum CommonStringConstants {
     }
 }
 
+public enum CellIdentifiers {
+    case newsFeedCellIdentifier
+    
+    public var value: String {
+        switch self {
+        case .newsFeedCellIdentifier:
+            return "NewsFeedTableViewCell"
+        }
+    }
+}
 

@@ -23,7 +23,7 @@ final class NetworkManager {
 }
 
 extension NetworkManager {
-    public func getTopStroies(completion: @escaping (Result<[String], Error>) -> Void) {
+    public func getTopStroies(completion: @escaping (Result<[Article], Error>) -> Void) {
         guard let url = createUrl() else {
             return
         }
@@ -36,7 +36,7 @@ extension NetworkManager {
             else if let customData = data {
                 do {
                     let result = try JSONDecoder().decode(NewsFeedListModel.self, from: customData)
-                    print("Articles: \(result.articles.count)")
+                    completion(.success(result.articles))
                 } catch {
                     completion(.failure(error))
                 }
