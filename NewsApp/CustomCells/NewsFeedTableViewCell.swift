@@ -55,7 +55,6 @@ class NewsFeedTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
     }
     
     override func prepareForReuse() {
@@ -86,7 +85,7 @@ class NewsFeedTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with newsFeedModel: Article, viewModel: NewsFeedViewModel) {
+    func configure(with newsFeedModel: Article, viewModel: DenemeProtocol) {
         newsTitleLabel.text = newsFeedModel.title
         subTitleLabel.text = newsFeedModel.description
         

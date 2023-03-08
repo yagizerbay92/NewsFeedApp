@@ -29,7 +29,9 @@ class NewsFeedViewModel {
             }
         }
     }
-    
+}
+
+extension NewsFeedViewModel: DenemeProtocol {
     public func subscribeListChange(with completion: @escaping NewsFeedCallback) {
         articleListSet = completion
     }
@@ -44,5 +46,9 @@ class NewsFeedViewModel {
     
     public func getImageData() -> Data {
         return self.imageData ?? Data()
+    }
+    
+    public func returnNewsFeedListCount() -> Int {
+        return newsFeedList?.count ?? 0
     }
 }

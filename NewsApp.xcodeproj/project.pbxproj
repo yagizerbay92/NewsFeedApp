@@ -19,6 +19,7 @@
 		4343E2BD29B770A700142962 /* NewsFeedListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2BC29B770A700142962 /* NewsFeedListModel.swift */; };
 		4343E2C029B777E700142962 /* NewsFeedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2BF29B777E700142962 /* NewsFeedListViewModel.swift */; };
 		4343E2C329B787FE00142962 /* NewsFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2C229B787FE00142962 /* NewsFeedTableViewCell.swift */; };
+		4343E2C729B8FD3D00142962 /* DenemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4343E2C629B8FD3D00142962 /* DenemeProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		4343E2BC29B770A700142962 /* NewsFeedListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedListModel.swift; sourceTree = "<group>"; };
 		4343E2BF29B777E700142962 /* NewsFeedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedListViewModel.swift; sourceTree = "<group>"; };
 		4343E2C229B787FE00142962 /* NewsFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedTableViewCell.swift; sourceTree = "<group>"; };
+		4343E2C629B8FD3D00142962 /* DenemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DenemeProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				4343E2BF29B777E700142962 /* NewsFeedListViewModel.swift */,
+				4343E2C629B8FD3D00142962 /* DenemeProtocol.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				4343E2BD29B770A700142962 /* NewsFeedListModel.swift in Sources */,
 				4343E2A429B7593100142962 /* NewsFeedListViewController.swift in Sources */,
 				4343E2BA29B760EB00142962 /* UrlBuilder.swift in Sources */,
+				4343E2C729B8FD3D00142962 /* DenemeProtocol.swift in Sources */,
 				4343E2C329B787FE00142962 /* NewsFeedTableViewCell.swift in Sources */,
 				4343E2A029B7593100142962 /* AppDelegate.swift in Sources */,
 				4343E2A229B7593100142962 /* SceneDelegate.swift in Sources */,
