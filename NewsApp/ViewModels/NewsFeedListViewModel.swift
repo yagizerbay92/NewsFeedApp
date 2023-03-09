@@ -19,7 +19,7 @@ class NewsFeedViewModel {
     private var articleListSet: NewsFeedCallback?
     public init() {}
     
-    public func getTopStories() {
+    private func getTopStories() {
         NewsFeedListService.shared.getNewsFeedList { [weak self] result in
             switch result {
             case .success(let success):
@@ -31,24 +31,37 @@ class NewsFeedViewModel {
     }
 }
 
-extension NewsFeedViewModel: DenemeProtocol {
-    public func subscribeListChange(with completion: @escaping NewsFeedCallback) {
+extension NewsFeedViewModel: NewsFeedListViewModelProtocol {
+    func subscribeListChange(with completion: @escaping NewsFeedCallback) {
         articleListSet = completion
     }
     
-    public func returnNewsFeedList() -> [Article] {
+    func returnNewsFeedList() -> [Article] {
         return newsFeedList ?? []
     }
     
-    public func setImageData(with data: Data) {
+    func setImageData(with data: Data) {
         self.imageData = data
     }
     
-    public func getImageData() -> Data {
+    func getImageData() -> Data {
         return self.imageData ?? Data()
     }
     
-    public func returnNewsFeedListCount() -> Int {
+    func returnNewsFeedListCount() -> Int {
         return newsFeedList?.count ?? 0
+    }
+    
+    func returnNewsFeedItem(index: Int) -> Article {
+        return newsFeedList?[index] ?? Article(source: Source(name: ""),
+                                               title: "",
+                                               description: "",
+                                               url: "",
+                                               urlToImage: "",
+                                               publishedAt: "")
+    }
+    
+    func fetchTopStories() {
+        getTopStories()
     }
 }

@@ -10,9 +10,9 @@ import SafariServices
 
 class NewsFeedListViewController: UIViewController {
     
-    private let viewModelProtocol: DenemeProtocol
+    private let viewModelProtocol: NewsFeedListViewModelProtocol
     
-    init(viewModelProtocol: DenemeProtocol) {
+    init(viewModelProtocol: NewsFeedListViewModelProtocol) {
         self.viewModelProtocol = viewModelProtocol
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,7 +21,7 @@ class NewsFeedListViewController: UIViewController {
         fatalError()
     }
     
-    private let feedsTableView: UITableView = {
+    private lazy var feedsTableView: UITableView = {
         let temp = UITableView()
         temp.register(NewsFeedTableViewCell.self,
                       forCellReuseIdentifier: CellIdentifiers.newsFeedCellIdentifier.value)
@@ -34,7 +34,7 @@ class NewsFeedListViewController: UIViewController {
         setupUI()
         setTableViewSpecs()
         activeConstraints()
-        viewModelProtocol.getTopStories()
+        viewModelProtocol.fetchTopStories()
         viewModelProtocol.subscribeListChange { [weak self] in
             DispatchQueue.main.async {
                 self?.feedsTableView.reloadData()
@@ -43,7 +43,7 @@ class NewsFeedListViewController: UIViewController {
     }
     
     private func setupUI() {
-        title = "News"
+        title = CommonStringConstants.newsFeedListTitle.value
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(feedsTableView)
@@ -74,14 +74,14 @@ extension NewsFeedListViewController: UITableViewDelegate, UITableViewDataSource
                                                             for: indexPath) as? NewsFeedTableViewCell else {
             fatalError()
         }
-        cell.configure(with: viewModelProtocol.returnNewsFeedList()[indexPath.row],
+        cell.configure(with: viewModelProtocol.returnNewsFeedItem(index: indexPath.row),
                        viewModel: viewModelProtocol)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         feedsTableView.deselectRow(at: indexPath, animated: true)
-        let feedItem = viewModelProtocol.returnNewsFeedList()[indexPath.row]
+        let feedItem = viewModelProtocol.returnNewsFeedItem(index: indexPath.row)
         
         guard let url = URL(string: feedItem.url ?? "") else {
             return

@@ -7,10 +7,11 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class NewsFeedTableViewCell: UITableViewCell {
     
-    private let newsTitleLabel: UILabel = {
+    private lazy var newsTitleLabel: UILabel = {
         let temp = UILabel()
         temp.numberOfLines = 0
         temp.font = .systemFont(ofSize: 22, weight: .semibold)
@@ -18,7 +19,7 @@ class NewsFeedTableViewCell: UITableViewCell {
         return temp
     }()
     
-    private let subTitleLabel: UILabel = {
+    private lazy var subTitleLabel: UILabel = {
         let temp = UILabel()
         temp.numberOfLines = 0
         temp.font = .systemFont(ofSize: 16, weight: .light)
@@ -26,7 +27,7 @@ class NewsFeedTableViewCell: UITableViewCell {
         return temp
     }()
     
-    private let newsImageView: UIImageView = {
+    private lazy var newsImageView: UIImageView = {
         let temp = UIImageView()
         temp.translatesAutoresizingMaskIntoConstraints = false
         temp.layer.cornerRadius = 6
@@ -50,7 +51,7 @@ class NewsFeedTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
     
     override func layoutSubviews() {
@@ -85,23 +86,12 @@ class NewsFeedTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with newsFeedModel: Article, viewModel: DenemeProtocol) {
+    func configure(with newsFeedModel: Article, viewModel: NewsFeedListViewModelProtocol) {
         newsTitleLabel.text = newsFeedModel.title
         subTitleLabel.text = newsFeedModel.description
         
-        // Image
-        newsImageView.image = UIImage(data: viewModel.getImageData())
-        
-        if let url = URL(string: newsFeedModel.urlToImage ?? "") {
-            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-                guard let data = data, error == nil else {
-                    return
-                }
-                viewModel.setImageData(with: data)
-                DispatchQueue.main.async {
-                    self?.newsImageView.image = UIImage(data: data)
-                }
-            }.resume()
-        }
+        guard let customImageUrl = URL(string: newsFeedModel.urlToImage ?? "") else { return }
+        newsImageView.kf.indicatorType = .activity
+        newsImageView.kf.setImage(with: customImageUrl)
     }
 }

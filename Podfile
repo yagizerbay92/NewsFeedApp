@@ -8,5 +8,6 @@ target 'NewsApp' do
   # Pods for NewsApp
 
   pod 'Alamofire'
+  pod 'Kingfisher', '~> 7.0'
 
 end

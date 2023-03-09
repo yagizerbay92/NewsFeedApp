@@ -12,21 +12,23 @@ class NewsFeedListService: NewsFeedListProtocol {
     private init() {}
     
     private func createUrl() -> URL? {
-        let urlQuery: [URLQueryItem] = [URLQueryItem(name: "country", value: "US"),
-                                        URLQueryItem(name: "apiKey", value: CommonStringConstants.apiKey.value)]
+        let urlQuery: [URLQueryItem] = [URLQueryItem(name: URLBuilderComponents.countryKey.value, value: Countries.US.value),
+                                        URLQueryItem(name: URLBuilderComponents.apiKey.value, value: URLBuilderComponents.apiValue.value)]
         
-        return URLBuilder.buildURL(scheme: "https",
-                                   host: CommonStringConstants.baseUrl.value,
+        return URLBuilder.buildURL(scheme: UrlScheme.https.value,
+                                   host: URLBuilderComponents.baseUrl.value,
                                    queries: urlQuery,
-                                   path: CommonStringConstants.topHeadLines.value)
+                                   path: URLBuilderComponents.topHeadLines.value)
     }
-    
+}
+
+extension NewsFeedListService {
     func getNewsFeedList(completion: @escaping (Result<NewsFeedListModel, Error>) -> Void) {
-        guard let url = createUrl() else {
-            return
-        }
+        guard let url = createUrl() else { return }
         
-        NetworkManager.shared.request(dataType: NewsFeedListModel.self, urlString: url, method: .get) { result in
+        NetworkManager.shared.request(dataType: NewsFeedListModel.self,
+                                      urlString: url,
+                                      method: .get) { result in
             switch result {
             case .success(let success):
                 completion(.success(success))
