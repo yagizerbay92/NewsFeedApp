@@ -20,10 +20,10 @@ class NewsFeedViewModel {
     public init() {}
     
     public func getTopStories() {
-        NetworkManager.shared.getTopStroies { [weak self] result in
+        NewsFeedListService.shared.getNewsFeedList { [weak self] result in
             switch result {
-            case .success(let articles):
-                self?.newsFeedList = articles
+            case .success(let success):
+                self?.newsFeedList = success.articles
             case .failure(let error):
                 print(error)
             }

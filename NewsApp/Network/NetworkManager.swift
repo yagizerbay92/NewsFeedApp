@@ -6,42 +6,32 @@
 //
 
 import Foundation
+import Alamofire
 
 final class NetworkManager {
     public static let shared = NetworkManager()
     private init() {}
-    
-    private func createUrl() -> URL? {
-        let urlQuery: [URLQueryItem] = [URLQueryItem(name: "country", value: "US"),
-                                       URLQueryItem(name: "apiKey", value: CommonStringConstants.apiKey.value)]
-        
-        return URLBuilder.buildURL(scheme: "https",
-                                   host: CommonStringConstants.baseUrl.value,
-                                   queries: urlQuery,
-                                   path: CommonStringConstants.topHeadLines.value)
-    }
 }
 
 extension NetworkManager {
-    public func getTopStroies(completion: @escaping (Result<[Article], Error>) -> Void) {
-        guard let url = createUrl() else {
-            return
-        }
+    func request<T: Codable>(dataType: T.Type,
+                             urlString: URL,
+                             method: HTTPMethod,
+                             completion: @escaping (Result<T, Error>) -> Void) {
         
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            if let err = error {
-                completion(.failure(err))
-            }
-            
-            else if let customData = data {
+        let method = Alamofire.HTTPMethod(rawValue: method.rawValue)
+        AF.request(urlString, method: method).responseData { response in
+            switch response.result {
+            case .success(let data):
                 do {
-                    let result = try JSONDecoder().decode(NewsFeedListModel.self, from: customData)
-                    completion(.success(result.articles))
-                } catch {
+                    let objectResponse = try JSONDecoder().decode(dataType, from: data)
+                    completion(.success(objectResponse))
+                } catch let error {
                     completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
-        task.resume()
     }
 }
