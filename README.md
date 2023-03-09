@@ -1,6 +1,6 @@
 # NewsFeedApp
 - Basic app that lists movies on a table view using MVVM architecture.
-- Tableview rows can be selected to show news detai via SFSafariViewController
+- Tableview rows can be selected to show news detail via SFSafariViewController
 
 ## Technologies
 
