@@ -1,6 +1,7 @@
 # NewsFeedApp
-- Basic app that lists news on a tableview by using newsApi.
-- Tableview rows can be selected to show news detail via SFSafariViewController.
+
+- NewsFeedApp is a simple app sample which uses NewsAPI to fetch top news headlines from the API.
+- News Tableview rows can be selected to show news detail via SFSafariViewController.
 
 ## Technologies
 
