@@ -15,4 +15,5 @@ protocol NewsFeedListViewModelProtocol: AnyObject {
     func returnNewsFeedList() -> [Article]
     func returnNewsFeedListCount() -> Int
     func returnNewsFeedItem(index: Int) -> Article
+    func fetchSearchedNewsList(queryString: String)
 }

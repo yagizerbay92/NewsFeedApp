@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NewsFeedListService: NewsFeedListProtocol {
+class NewsFeedListService {
     static let shared = NewsFeedListService()
     private init() {}
     
@@ -22,7 +22,7 @@ class NewsFeedListService: NewsFeedListProtocol {
     }
 }
 
-extension NewsFeedListService {
+extension NewsFeedListService: NewsFeedListProtocol {
     func getNewsFeedList(completion: @escaping (Result<NewsFeedListModel, Error>) -> Void) {
         guard let url = createUrl() else { return }
         

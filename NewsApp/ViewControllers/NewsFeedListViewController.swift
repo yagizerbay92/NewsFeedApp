@@ -11,6 +11,7 @@ import SafariServices
 class NewsFeedListViewController: UIViewController {
     
     private let viewModelProtocol: NewsFeedListViewModelProtocol
+    private let searchVC = UISearchController(searchResultsController: nil)
     
     init(viewModelProtocol: NewsFeedListViewModelProtocol) {
         self.viewModelProtocol = viewModelProtocol
@@ -40,6 +41,12 @@ class NewsFeedListViewController: UIViewController {
                 self?.feedsTableView.reloadData()
             }
         }
+        createSearchBar()
+    }
+    
+    private func createSearchBar() {
+        navigationItem.searchController = searchVC
+        searchVC.searchBar.delegate = self
     }
     
     private func setupUI() {
@@ -95,6 +102,28 @@ extension NewsFeedListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+}
+
+extension NewsFeedListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text, !text.isEmpty else { return }
+        
+        viewModelProtocol.fetchSearchedNewsList(queryString: text)
+        viewModelProtocol.subscribeListChange { [weak self] in
+            DispatchQueue.main.async {
+                self?.feedsTableView.reloadData()
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModelProtocol.fetchTopStories()
+        viewModelProtocol.subscribeListChange { [weak self] in
+            DispatchQueue.main.async {
+                self?.feedsTableView.reloadData()
+            }
+        }
     }
 }
 

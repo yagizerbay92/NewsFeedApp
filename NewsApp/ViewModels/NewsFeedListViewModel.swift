@@ -29,6 +29,17 @@ class NewsFeedViewModel {
             }
         }
     }
+    
+    private func getSearchedNewsList(queryString: String) {
+        NewsFeedSearchService.shared.getNewsFeedSearchList(queryString: queryString) { [weak self] result in
+            switch result {
+            case .success(let success):
+                self?.newsFeedList = success.articles
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 extension NewsFeedViewModel: NewsFeedListViewModelProtocol {
@@ -63,5 +74,9 @@ extension NewsFeedViewModel: NewsFeedListViewModelProtocol {
     
     func fetchTopStories() {
         getTopStories()
+    }
+    
+    func fetchSearchedNewsList(queryString: String) {
+        getSearchedNewsList(queryString: queryString)
     }
 }

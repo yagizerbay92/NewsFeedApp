@@ -35,6 +35,10 @@ public enum URLBuilderComponents {
     case apiValue
     case baseUrl
     case topHeadLines
+    case everything
+    case sortedByKey
+    case sortedByValue
+    case queryKey
     
     public var value: String {
         switch self {
@@ -48,6 +52,14 @@ public enum URLBuilderComponents {
             return "newsapi.org"
         case .topHeadLines:
             return "/v2/top-headlines"
+        case .everything:
+            return "/v2/everything"
+        case .sortedByKey:
+            return "sortedByKey"
+        case .sortedByValue:
+            return "popularity"
+        case .queryKey:
+            return "q"
         }
     }
 }
